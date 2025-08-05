@@ -3,5 +3,7 @@ Esse projeto consiste em um jogo de carro em 2D, na qual o objetivo é desviar d
 
 Artes para Ideia:
 ![alt text](https://www.spriters-resource.com/resources/game_icons/3/2963.png?updated=1460947398 "Arte1")
-![alt text](https://www.spriters-resource.com/fullview/179604/ "Arte2")
+
+
+
 Alunos: Antônio Neto, Caio Braga, Daniel Cavalcanti, Felipe Mulato, Gabriel Mezzalira, Leonardo Alves
