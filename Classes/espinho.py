@@ -7,7 +7,12 @@ class Espinho:
 
         pos_y_aleatoria = random.randint(200, 500)
         self._rect = self._surf.get_rect(topleft=(-100, pos_y_aleatoria))
+        self.hitbox = self._rect.inflate(-28, -18)
     
     def mover_espinho(self, velocidade):
         self._rect.x += velocidade
+        self.hitbox.centerx = self._rect.centerx
+        self.hitbox.centery = self._rect.centery
+
+
         
