@@ -5,6 +5,7 @@ from Classes.carro import Carro
 from Classes.pista import Pista
 from Classes.fundo import Fundo
 from Classes.espinho import Espinho
+from Classes.vidas import Vidas
 
 pg.init()
 altura = 720
@@ -22,6 +23,7 @@ velocidade_bg = 1
 pistas = [Pista(-1240, 'Pista1'), Pista(-3720, 'Pista1')]
 fundos = [Fundo(-1240, 'Fundo1'), Fundo(-3720, 'Fundo1')]
 carro = Carro('CarRed')
+vidas = [Vidas(1050), Vidas(1100), Vidas(1150)]
 
 espinhos = []
 timer_espinhos = pg.USEREVENT + 1
@@ -60,7 +62,14 @@ while running:
 
         for espinho in espinhos:
             if carro.hitbox.colliderect(espinho.hitbox):
-                carro.perder_vida() 
+                carro.perder_vida()
+
+                if carro.vidas == 2:
+                    vidas[2].morreu()
+                elif carro.vidas == 1:
+                    vidas[1].morreu()
+                elif carro.vidas == 0:
+                    vidas[0].morreu()
 
         if carro.hitbox.centery > limite_inferior_pista:
             carro.estado_queda = 'baixo'
@@ -79,6 +88,9 @@ while running:
             direcao_rotacao = 8
             direcao_movimento = -1 
         
+        for vida in vidas:
+            vida.morreu()
+            
         carro.angulo_rotação += direcao_rotacao
         carro.escala *= 0.97
         carro.velocidade_queda += 0.18
@@ -103,6 +115,9 @@ while running:
     
     for espinho in espinhos:
         tela.blit(espinho._surf, espinho._rect)
+    
+    for vida in vidas:
+        tela.blit(vida._surf, vida._rect)
         
     tela.blit(carro._surf,carro._rect)
     pg.draw.rect(tela, (255, 0, 0), carro.hitbox, 2)

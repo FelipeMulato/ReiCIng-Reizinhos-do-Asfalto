@@ -2,7 +2,7 @@ import pygame as pg
 
 class Carro:
     def __init__(self, arquivo):
-        self._surf =pg.image.load(f'ReiCIng-Reizinhos-do-Asfalto/Imagens/{arquivo}.png').convert_alpha()
+        self._surf = pg.image.load(f'Imagens/{arquivo}.png').convert_alpha()
         self._original_surf = self._surf
         self._rect = self._surf.get_rect(midbottom = (1000, 330))
         self.hitbox = self._rect.inflate(-18, -12)
@@ -10,7 +10,7 @@ class Carro:
         self.vidas = 3
         self.invencivel = False
         self.tempo_invencivel = 0
-        self.duracao_invencibilidade = 3000
+        self.duracao_invencibilidade = 1500
         self.estado_queda = 'nenhum'
         self.velocidade_queda = 0
 
