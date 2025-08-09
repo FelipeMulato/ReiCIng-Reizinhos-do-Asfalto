@@ -25,9 +25,11 @@ pistas = [Pista(-1240, 'Pista1'), Pista(-3720, 'Pista1')]
 fundos = [Fundo(-1240, 'Fundo1'), Fundo(-3720, 'Fundo1')]
 carro = Carro('CarRed')
 vidas = [Vidas(1050), Vidas(1100), Vidas(1150)]
+
 espinhos = []
-timer_espinhos = pg.USEREVENT + 1
-pg.time.set_timer(timer_espinhos, 3000)
+tempo_spawn = 3000
+proximo_espinho = pg.time.get_ticks() + tempo_spawn
+
 trofeus = []
 timer_trofeus = pg.USEREVENT +2
 pg.time.set_timer(timer_trofeus, 23000)
@@ -38,10 +40,17 @@ while running:
     for event in pg.event.get():
         if event.type == pg.QUIT:
             running = False
-        if event.type == timer_espinhos:
-            espinhos.append(Espinho('espinho'))
         if event.type == timer_trofeus:
             trofeus.append(Trofeu('trofeu'))
+    
+    atual = pg.time.get_ticks() 
+    if atual >= proximo_espinho:
+        espinhos.append(Espinho('espinho'))
+        tempo_spawn *= 0.96
+        if tempo_spawn < 1000:
+            tempo_spawn = 1000
+            print('1000 atingido')
+        proximo_espinho = atual + tempo_spawn
 
     # Carro está na pista
     if carro.estado_queda == 'nenhum':
