@@ -142,12 +142,22 @@ while running:
     
     for espinho in espinhos:
         tela.blit(espinho._surf, espinho._rect)
+
+    desenhar_carro = True
+    
+    if carro.invencivel == True:
+        trigger = (pg.time.get_ticks() // 100) % 2
+        if trigger == 0:
+            desenhar_carro = False
+    
+    if desenhar_carro == True:
+        tela.blit(carro._surf,carro._rect)
+        pg.draw.rect(tela, (255, 0, 0), carro.hitbox, 2)
+
     
     for vida in vidas:
         tela.blit(vida._surf, vida._rect)
         
-    tela.blit(carro._surf,carro._rect)
-    pg.draw.rect(tela, (255, 0, 0), carro.hitbox, 2)
     for espinho in espinhos:
         pg.draw.rect(tela, (0, 0, 255), espinho.hitbox, 2)
 
