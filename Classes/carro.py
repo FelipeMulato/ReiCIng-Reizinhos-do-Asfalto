@@ -8,6 +8,8 @@ class Carro:
         self.hitbox = self._rect.inflate(-18, -12)
 
         self.vidas = 3
+        self.trofeus = 0
+        self.venceu = False
         self.invencivel = False
         self.tempo_invencivel = 0
         self.duracao_invencibilidade = 1500
@@ -40,3 +42,11 @@ class Carro:
             tempo_atual = pg.time.get_ticks()
             if tempo_atual - self.tempo_invencivel > self.duracao_invencibilidade:
                 self.invencivel = False
+    
+    def ganhar_trofeu(self):
+        if self.trofeus < 3:
+            self.trofeus += 1
+            print(f'Troféus ganhos: {self.trofeus}') 
+        if self.trofeus >= 3:
+            self.venceu = True
+        return self.venceu
