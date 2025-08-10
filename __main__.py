@@ -201,9 +201,9 @@ while running:
     for vida in vidas:
         if vida.blink:
             if not desenhar_vida:
-                vida.morreu()
-            else:
                 vida.viveu()
+            else:
+                vida.morreu()
         else:
             if vida.viva:
                 vida.viveu()
