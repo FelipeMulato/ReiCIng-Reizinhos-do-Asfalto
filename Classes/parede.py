@@ -1,7 +1,7 @@
 import pygame as pg
 import random
 
-class Espinho:
+class Parede:
     def __init__(self, arquivo):
         self._surf = pg.image.load(f'Imagens/{arquivo}.png')
 
@@ -14,5 +14,4 @@ class Espinho:
         self.hitbox.centerx = self._rect.centerx
         self.hitbox.centery = self._rect.centery
 
-
-        
+    
