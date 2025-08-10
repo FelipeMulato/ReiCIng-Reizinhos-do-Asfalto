@@ -112,7 +112,8 @@ while running:
                 yv = trofeu._rect.y
                 a = (109 - yv) / (102 - xv)**2
                 b = (2 * (109 - yv) * xv) / (102 - xv)**2
-                x, y = trofeu.voar(xv, yv, a, b)
+                c = ((yv * 4 * a) + b**2) / 4 * a
+                x, y = trofeu.voar(xv, yv, a, b, c)
 
             if trofeu.pego:  # Leva o troféu até o contador
                 if trofeu._rect.colliderect((30, 30, 160, 75)):  # Coleta o troféu
@@ -121,7 +122,7 @@ while running:
                     # Remove o troféu da tela após coleta
                     trofeus.remove(trofeu)
                 else:  # Move o troféu novamente
-                    x, y = trofeu.voar(x, y, a, b)
+                    x, y = trofeu.voar(x, y, a, b, c)
 
         # Checar se o carro caiu da pista
         if carro.hitbox.centery > limite_inferior_pista:

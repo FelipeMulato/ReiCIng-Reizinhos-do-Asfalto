@@ -16,9 +16,9 @@ class Trofeu:
         self.hitbox.centerx = self._rect.centerx
         self.hitbox.centery = self._rect.centery
     
-    def voar(self, x, y, a, b):
+    def voar(self, x, y, a, b, c):
         prox_x = x + 30
-        prox_y = a * prox_x**2 - b * prox_x + 20
+        prox_y = a * prox_x**2 - b * prox_x + c
         dx = abs(x - prox_x)
         dy = abs(round(y - prox_y))
         self._rect.x -= dx
