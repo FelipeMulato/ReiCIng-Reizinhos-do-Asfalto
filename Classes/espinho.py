@@ -12,7 +12,4 @@ class Espinho:
     def mover_espinho(self, velocidade):
         self._rect.x += velocidade
         self.hitbox.centerx = self._rect.centerx
-        self.hitbox.centery = self._rect.centery
-
-
-        
+        self.hitbox.centery = self._rect.centery    
