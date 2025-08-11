@@ -36,6 +36,7 @@ pg.time.set_timer(timer_trofeus, 23000)
 slows=[]
 timer_slow= pg.USEREVENT +3
 pg.time.set_timer(timer_slow, 30000)
+timer_duração_slow= pg.USEREVENT +1
 
 # Loop principal do jogo
 while running:
@@ -103,10 +104,14 @@ while running:
             # Colisão do slow com o carro
             if carro.hitbox.colliderect(slow.hitbox):
                 #velocidade_bg= velocidade_bg//2 #toda vez que pegar o slow a velocidade é diminuida
+                vel_passada= velocidade_bg 
                 velocidade_bg = carro.ganhar_slow(velocidade_bg)
                 slows.remove(slow)  # remove o slow da tela após coleta
 
-
+                if vel_passada != velocidade_bg:
+                    pg.time.set_timer(timer_duração_slow, 5000)
+                    
+                    
         # Checar se o carro caiu da pista     
         if carro.hitbox.centery > limite_inferior_pista:
             carro.estado_queda = 'baixo'

@@ -57,6 +57,6 @@ class Carro:
             self.slow+=1
             print(f"Pegou {self.slow} slows")
             self.slow=0
-
+            
             return velocidade//2
 
