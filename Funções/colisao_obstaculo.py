@@ -1,6 +1,7 @@
 import pygame as pg
 
-def colisao_obstaculo(carro, lista_obstaculos, vidas):
+def colisao_obstaculo(carro, lista_obstaculos, vidas, velocidade_bg):
+
     for obstaculo in lista_obstaculos[:]:
         if carro.hitbox.colliderect(obstaculo.hitbox):
             carro.perder_vida()
