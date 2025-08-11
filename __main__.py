@@ -8,7 +8,10 @@ from Classes.parede import Parede
 from Classes.vidas import Vidas
 from Classes.hud_trofeu import HUD_Trofeus
 from Classes.trofeu import Trofeu
+from Classes.slow import SLow
+from Classes.explosao import Explosao
 
+import time
 from Funções.gerar_obstaculo import gerar_obstaculos
 from Funções.mover_remover_obstaculo import mover_remover_obstaculos
 from Funções.colisao_obstaculo import colisao_obstaculo
@@ -32,16 +35,24 @@ fundos = [Fundo(-1240, 'Fundo1'), Fundo(-3720, 'Fundo1')]
 carro = Carro('CarRed')
 vidas = [Vidas(1050), Vidas(1100), Vidas(1150)]
 hud_trofeus = HUD_Trofeus()
+# Inicialização do Espinho
 espinhos = []
-tempo_spawn = 3000
-prox_espinho = pg.time.get_ticks() + tempo_spawn
+tempo_spawn_espinho = 3000
+prox_espinho = pg.time.get_ticks() + tempo_spawn_espinho
+# Inicialização da Parede
 paredes = []
 tempo_spawn_parede = 5000
-prox_parede = pg.time.get_ticks() + tempo_spawn
+prox_parede = pg.time.get_ticks() + tempo_spawn_parede
+# Inicialização do Troféu
 trofeus = []
 timer_trofeus = pg.USEREVENT + 1
 pg.time.set_timer(timer_trofeus, 20000)
+# Inicialização do SLow
+slows = []
+tempo_spawn_slow = 15000
+prox_slow = pg.time.get_ticks() + tempo_spawn_slow
 
+explosao = pg.sprite.Group()
 # Loop principal do jogo
 while running:
     # Eventos do jogo
@@ -55,8 +66,9 @@ while running:
 
     # Geração dos obstáculos
     tempo_atual = pg.time.get_ticks()
-    prox_espinho = gerar_obstaculos(tempo_atual, prox_espinho, espinhos, Espinho, tempo_spawn, 800)
+    prox_espinho = gerar_obstaculos(tempo_atual, prox_espinho, espinhos, Espinho, tempo_spawn_espinho, 800)
     prox_parede = gerar_obstaculos(tempo_atual, prox_parede, paredes, Parede, tempo_spawn_parede, 2000)
+    prox_slow = gerar_obstaculos(tempo_atual, prox_slow, slows, SLow, tempo_spawn_slow, 3000)
     # Verificar se os obstáculos estão sobrepostos
     sobreposicao_obstaculo(espinhos, paredes) if espinhos and paredes else None
     # Carro está na pista
@@ -80,10 +92,11 @@ while running:
         # Move e remove os obstáculos
         mover_remover_obstaculos(paredes, velocidade_bg, largura)
         mover_remover_obstaculos(espinhos, velocidade_bg, largura)
+        mover_remover_obstaculos(slows, velocidade_bg, largura)
         # Colisão com os obstáculos
-        colisao_obstaculo(carro, espinhos, vidas)
-        colisao_obstaculo(carro, paredes, vidas)
-
+        colisao_obstaculo(carro, espinhos, vidas,velocidade_bg)
+        colisao_obstaculo(carro, paredes, vidas,velocidade_bg)
+        colisao_obstaculo(carro, slows, vidas,velocidade_bg)
         # Move e remove os troféus
         for trofeu in trofeus[:]:
             trofeu.mover_trofeu(velocidade_bg)
@@ -120,16 +133,16 @@ while running:
             carro.estado_queda = 'cima'
 
     # Carro caiu da pista
-    if carro.estado_queda != 'nenhum':
+    if carro.estado_queda == 'cima' or carro.estado_queda == 'baixo':
         centro_antigo = carro._rect.center
 
         if carro.estado_queda == 'baixo':
             direcao_rotacao = -8
             direcao_movimento = 1
-        else:
+        elif carro.estado_queda == 'cima':
             direcao_rotacao = 8
             direcao_movimento = -1
-
+       
         # Remove todas as vidas do HUD
         for vida in vidas:
             if vida.viva:
@@ -146,8 +159,28 @@ while running:
 
         carro._rect.y += carro.velocidade_queda * direcao_movimento
 
-        if carro._rect.top > altura or carro._rect.bottom < -110:
+        if carro._rect.top > altura or carro._rect.bottom < -110 :
             carro.morrer()
+    
+    elif carro.estado_queda == 'colidiu':
+        carro_tempo_colisao = pg.time.get_ticks()
+
+        velocidade_bg = 0
+
+        explosao.add(Explosao(carro._rect.centerx, carro._rect.centery))
+        carro.estado_queda = 'explodindo'
+        # Remove vidas do HUD
+        for vida in vidas:
+            if vida.viva:
+                vida.morreu()
+                vida.blink = True
+                vida.tempo_blink = pg.time.get_ticks()
+    elif carro.estado_queda == 'explodindo':
+        if pg.time.get_ticks() - carro_tempo_colisao > 300:
+           carro.morrer()
+
+            
+          
 
     # Testar se o tempo de invencibilidade acabou
     carro.checagem_invencibilidade()
@@ -209,9 +242,14 @@ while running:
     for parede in paredes:
         pg.draw.rect(tela, (0, 255, 0), parede.hitbox, 2)
 
+    explosao.draw(tela)
+    explosao.update()
     for trofeu in trofeus:
         tela.blit(trofeu.surf, trofeu._rect)
 
+    for slow in slows:
+        tela.blit(slow.retrato, slow._rect)
+    
     pg.display.update()
 
 # Encerra o programa
