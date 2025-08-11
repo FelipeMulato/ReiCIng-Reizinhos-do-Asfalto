@@ -50,3 +50,6 @@ class Carro:
         if self.trofeus >= 3:
             self.venceu = True
         return self.venceu
+    
+    def ganhar_vida(self):
+        self.vida += 1

@@ -42,6 +42,8 @@ trofeus = []
 timer_trofeus = pg.USEREVENT + 1
 pg.time.set_timer(timer_trofeus, 20000)
 
+
+
 # Loop principal do jogo
 while running:
     # Eventos do jogo
