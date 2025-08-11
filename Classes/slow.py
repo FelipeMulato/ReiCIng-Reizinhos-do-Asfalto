@@ -5,7 +5,7 @@ class SLow():
     def __init__(self,arquivo):
 
         self.retrato= pygame.image.load(f"Imagens/{arquivo}.png")
-        self.retrato= pygame.transform.scale(self.retrato, (50, 50))
+        self.retrato= pygame.transform.scale(self.retrato, (80, 80))
         
         posição_y= random.randint(200, 500)
         

@@ -53,10 +53,13 @@ class Carro:
         return self.venceu
     
     def ganhar_slow(self, velocidade):
-        if self.slow<2:
-            self.slow+=1
-            print(f"Pegou {self.slow} slows")
-            self.slow=0
-            
-            return velocidade//2
+
+        self.slow+=1
+        
+        print(f"Quantidade de slows: {self.slow}")
+
+        if velocidade<=2:
+            return velocidade
+        else:    
+            return velocidade - 1
 
