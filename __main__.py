@@ -4,10 +4,15 @@ from Classes.carro import Carro
 from Classes.pista import Pista
 from Classes.fundo import Fundo
 from Classes.espinho import Espinho
+from Classes.parede import Parede
 from Classes.vidas import Vidas
 from Classes.hud_trofeu import HUD_Trofeus
 from Classes.trofeu import Trofeu
 
+from Funções.gerar_obstaculo import gerar_obstaculos
+from Funções.mover_remover_obstaculo import mover_remover_obstaculos
+from Funções.colisao_obstaculo import colisao_obstaculo
+from Funções.sobreposicao_objetos import sobreposicao_obstaculo
 pg.init()
 altura = 720
 largura = 1240
@@ -21,7 +26,7 @@ pg.display.set_caption('ReiCIng')
 limite_superior_pista = 140
 limite_inferior_pista = 630
 running = True
-velocidade_bg = 3
+velocidade_bg = 7
 pistas = [Pista(-1240, 'Pista1'), Pista(-3720, 'Pista1')]
 fundos = [Fundo(-1240, 'Fundo1'), Fundo(-3720, 'Fundo1')]
 carro = Carro('CarRed')
@@ -30,6 +35,9 @@ hud_trofeus = HUD_Trofeus()
 espinhos = []
 tempo_spawn = 3000
 prox_espinho = pg.time.get_ticks() + tempo_spawn
+paredes = []
+tempo_spawn_parede = 5000
+prox_parede = pg.time.get_ticks() + tempo_spawn
 trofeus = []
 timer_trofeus = pg.USEREVENT + 1
 pg.time.set_timer(timer_trofeus, 20000)
@@ -45,16 +53,14 @@ while running:
 
     velocidade_bg += 0.0005  # Incrementa a velocidade do fundo
 
-    # Geração do próximo espinho
-    atual = pg.time.get_ticks()
-    if atual >= prox_espinho:
-        espinhos.append(Espinho('espinho'))
-        tempo_spawn *= 0.96
-        if tempo_spawn < 1000:
-            tempo_spawn = 1000
-            print('Taxa de spawn de espinhos máxima atingida! : 1 esp/s')
-        prox_espinho = atual + tempo_spawn
-
+    # Geração dos obstáculos
+    tempo_atual = pg.time.get_ticks()
+    prox_espinho = gerar_obstaculos(tempo_atual, prox_espinho, espinhos, Espinho, tempo_spawn, 800)
+    prox_parede = gerar_obstaculos(tempo_atual, prox_parede, paredes, Parede, tempo_spawn_parede, 2000)
+    
+    # Verificar se os obstáculos estão sobrepostos
+    sobreposicao_obstaculo(espinhos, paredes) if espinhos and paredes else None
+    
     # Carro está na pista
     if carro.estado_queda == 'nenhum':
         # Movimentação do carro
@@ -73,27 +79,18 @@ while running:
                 fundos.pop(i)
                 fundos.append(Fundo(-3720, 'Fundo1'))
 
-        # Move e remove os espinhos
-        for espinho in espinhos[:]:
-            espinho.mover_espinho(velocidade_bg)
-            if espinho._rect.left > largura:
-                espinhos.remove(espinho)
-        # Colisão dos espinhos com o carro
-        for espinho in espinhos:
-            if carro.hitbox.colliderect(espinho.hitbox):
-                carro.perder_vida()
-                if carro.vidas == 2: # Perde a vida no HUD
-                    vidas[2].morreu()
-                    vidas[2].blink = True
-                    vidas[2].tempo_blink = pg.time.get_ticks()
-                elif carro.vidas == 1:
-                    vidas[1].morreu()
-                    vidas[1].blink = True
-                    vidas[1].tempo_blink = pg.time.get_ticks()
-                elif carro.vidas == 0:
-                    vidas[0].morreu()
-                    vidas[0].blink = True
-                    vidas[0].tempo_blink = pg.time.get_ticks()
+        # Move e remove os obstáculos
+        mover_remover_obstaculos(paredes, velocidade_bg, largura)
+        mover_remover_obstaculos(espinhos, velocidade_bg, largura)
+        # Colisão com os obstáculos
+        colisao_obstaculo(carro, espinhos, vidas)
+        colisao_obstaculo(carro, paredes, vidas)
+
+        # Evita o spawn de um troféu em cima de uma parede
+        if len(paredes) > 0 and len(trofeus) > 0:
+            for parede in paredes:
+                if trofeus[-1].hitbox.colliderect(parede.hitbox):
+                    trofeus[-1].mudar_pos()
 
         # Move e remove os troféus
         for trofeu in trofeus[:]:
@@ -112,7 +109,8 @@ while running:
                 yv = trofeu._rect.y
                 a = (109 - yv) / (102 - xv)**2
                 b = (2 * (109 - yv) * xv) / (102 - xv)**2
-                x, y = trofeu.voar(xv, yv, a, b)
+                c = ((yv * 4 * a) + b**2) / 4 * a
+                x = trofeu.voar(xv, a, b, c)
 
             if trofeu.pego:  # Leva o troféu até o contador
                 if trofeu._rect.colliderect((30, 30, 160, 75)):  # Coleta o troféu
@@ -121,7 +119,7 @@ while running:
                     # Remove o troféu da tela após coleta
                     trofeus.remove(trofeu)
                 else:  # Move o troféu novamente
-                    x, y = trofeu.voar(x, y, a, b)
+                    x = trofeu.voar(x, a, b, c)
 
         # Checar se o carro caiu da pista
         if carro.hitbox.centery > limite_inferior_pista:
@@ -178,6 +176,8 @@ while running:
 
     for espinho in espinhos:
         tela.blit(espinho._surf, espinho._rect)
+    for parede in paredes:
+        tela.blit(parede._surf, parede._rect)
 
     desenhar_carro = True
     desenhar_vida = True
@@ -201,9 +201,9 @@ while running:
     for vida in vidas:
         if vida.blink:
             if not desenhar_vida:
-                vida.morreu()
-            else:
                 vida.viveu()
+            else:
+                vida.morreu()
         else:
             if vida.viva:
                 vida.viveu()
@@ -214,6 +214,8 @@ while running:
 
     for espinho in espinhos:
         pg.draw.rect(tela, (0, 0, 255), espinho.hitbox, 2)
+    for parede in paredes:
+        pg.draw.rect(tela, (0, 255, 0), parede.hitbox, 2)
 
     for trofeu in trofeus:
         tela.blit(trofeu.surf, trofeu._rect)

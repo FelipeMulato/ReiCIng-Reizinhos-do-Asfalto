@@ -1,5 +1,4 @@
 import pygame as pg
-import time
 
 class Vidas:
     def __init__(self, x):
@@ -7,7 +6,7 @@ class Vidas:
         self._rect = self._surf.get_rect(topleft=(x, 25))
         self.blink = False
         self.tempo_blink = pg.time.get_ticks()
-        self.duracao_blink = 1500
+        self.duracao_blink = 1000
         self.viva = True
 
     def morreu(self):

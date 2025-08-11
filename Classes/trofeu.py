@@ -16,12 +16,14 @@ class Trofeu:
         self.hitbox.centerx = self._rect.centerx
         self.hitbox.centery = self._rect.centery
     
-    def voar(self, x, y, a, b):
-        prox_x = x + 30
-        prox_y = a * prox_x**2 - b * prox_x + 20
-        dx = abs(x - prox_x)
-        dy = abs(round(y - prox_y))
-        self._rect.x -= dx
-        self._rect.y -= dy
+    def voar(self, x, a, b, c):
+        prox_x = x - 30
+        prox_y = a * prox_x**2 - b * prox_x + c
+        self._rect.x = prox_x
+        self._rect.y = round(prox_y)
 
-        return prox_x, prox_y
+        return prox_x
+    
+    def mudar_pos(self):
+        novo_y = random.randint(200, 500)
+        self._rect.y = novo_y
