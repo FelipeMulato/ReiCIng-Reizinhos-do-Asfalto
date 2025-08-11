@@ -9,7 +9,7 @@ class Carro:
 
         self.vidas = 3
         self.trofeus = 0
-        self.slow=0
+        self.slow = 0
         self.venceu = False
         self.invencivel = False
         self.tempo_invencivel = 0
@@ -50,16 +50,8 @@ class Carro:
             print(f'Troféus ganhos: {self.trofeus}') 
         if self.trofeus >= 3:
             self.venceu = True
+        
         return self.venceu
     
-    def ganhar_slow(self, velocidade):
-
-        self.slow+=1
-        
-        print(f"Quantidade de slows: {self.slow}")
-
-        if velocidade<=2:
-            return velocidade
-        else:    
-            return velocidade - 1
-
+    def ganhar_slow(self):
+        self.slow += 1

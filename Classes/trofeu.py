@@ -11,7 +11,7 @@ class Trofeu:
         self.hitbox = self._rect.inflate(-28, -18)
         self.pego = False
 
-    def mover_trofeu(self, velocidade):
+    def mover(self, velocidade):
         self._rect.x += velocidade
         self.hitbox.centerx = self._rect.centerx
         self.hitbox.centery = self._rect.centery
