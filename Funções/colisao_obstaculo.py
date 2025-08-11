@@ -1,6 +1,5 @@
 import pygame as pg
-
-def colisao_obstaculo(carro, lista_obstaculos, vidas):
+def colisao_obstaculo(carro,lista_obstaculos,vidas,velocidade_bg):
     for obstaculo in lista_obstaculos[:]:
         if carro.hitbox.colliderect(obstaculo.hitbox):
             carro.perder_vida()
@@ -23,3 +22,6 @@ def colisao_obstaculo(carro, lista_obstaculos, vidas):
                 carro.estado_queda = 'colidiu'
                 carro.velocidade = 0
                 carro.tempo_queda = pg.time.get_ticks()
+            elif obstaculo.__class__.__name__ == 'SLow':
+                carro.ganhar_slow(velocidade_bg)
+                lista_obstaculos.remove(obstaculo)
