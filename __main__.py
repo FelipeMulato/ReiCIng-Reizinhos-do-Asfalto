@@ -209,7 +209,7 @@ while running:
     elif carro.estado_queda == 'explodindo':
         if pg.time.get_ticks() - carro_tempo_colisao > 300:
            carro.morrer()
-  
+            
     # Testar se o tempo de invencibilidade acabou
     carro.checagem_invencibilidade()
     carro.checagem_slow()
