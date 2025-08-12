@@ -12,7 +12,6 @@ class Vidas:
     def morreu(self):
         self._surf = pg.image.load(f'Imagens/coracao_vazio.png')
         self.blink = True
-        self.viva = False
     
     def viveu(self):
         self._surf = pg.image.load(f'Imagens/coracao_cheio.png')

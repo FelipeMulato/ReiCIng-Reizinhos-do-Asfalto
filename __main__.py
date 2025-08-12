@@ -9,6 +9,7 @@ from Classes.vidas import Vidas
 from Classes.hud_trofeu import HUD_Trofeus
 from Classes.trofeu import Trofeu
 from Classes.slow import Slow
+from Classes.coracao_coletavel import Coracao
 from Classes.explosao import Explosao
 
 from Funções.gerar_obstaculo import gerar_obstaculos
@@ -30,7 +31,8 @@ pg.display.set_caption('ReiCIng')
 limite_superior_pista = 140
 limite_inferior_pista = 630
 running = True
-velocidade_bg = 7
+velocidade_bg = 10
+velocidade_anterior = 10
 pistas = [Pista(-1240, 'Pista1'), Pista(-3720, 'Pista1')]
 fundos = [Fundo(-1240, 'Fundo1'), Fundo(-3720, 'Fundo1')]
 carro = Carro('CarRed')
@@ -50,8 +52,13 @@ timer_trofeus = pg.USEREVENT + 1
 pg.time.set_timer(timer_trofeus, 20000)
 # Inicialização do Slow
 slows = []
-tempo_spawn_slow = 15000
+tempo_spawn_slow = 10000
 prox_slow = pg.time.get_ticks() + tempo_spawn_slow
+slow_iniciado = False
+# Inicialização coração coletavel
+coracao_coletavel_lista = []
+timer_coracao_coletavel = pg.USEREVENT + 2
+pg.time.set_timer(timer_coracao_coletavel, 25000)
 
 explosao = pg.sprite.Group()
 
@@ -63,6 +70,9 @@ while running:
             running = False
         if event.type == timer_trofeus:
             trofeus.append(Trofeu('trofeu'))
+        if carro.vidas <3:
+            if event.type == timer_coracao_coletavel:
+                coracao_coletavel_lista.append(Coracao('coracao_cheio'))
 
     velocidade_bg += 0.0005  # Incrementa a velocidade do fundo
 
@@ -98,11 +108,13 @@ while running:
         mover_remover(espinhos, velocidade_bg, largura)
         mover_remover(slows, velocidade_bg, largura)
         mover_remover(trofeus, velocidade_bg, largura)
+        mover_remover(coracao_coletavel_lista, velocidade_bg, largura)
         # Colisão com os obstáculos
         colisao_obstaculo(carro, espinhos, vidas, velocidade_bg)
         colisao_obstaculo(carro, paredes, vidas, velocidade_bg)
         # Colisão com os coletáveis
-        velocidade_bg = colisao_coletavel(carro, slows, espinhos, hud_trofeus, velocidade_bg) if len(slows) > 0 else velocidade_bg
+        colisao_coletavel(carro, coracao_coletavel_lista, velocidade_bg, vidas)
+        colisao_coletavel(carro, slows, velocidade_bg, vidas)
 
         # Evita o spawn de um troféu em cima de uma parede
         if len(paredes) > 0 and len(trofeus) > 0:
@@ -156,6 +168,7 @@ while running:
         for vida in vidas:
             if vida.viva:
                 vida.morreu()
+                vida.viva = False
                 vida.blink = True
                 vida.tempo_blink = pg.time.get_ticks()
 
@@ -184,6 +197,7 @@ while running:
         for vida in vidas:
             if vida.viva:
                 vida.morreu()
+                vida.viva = False
                 vida.blink = True
                 vida.tempo_blink = pg.time.get_ticks()
 
@@ -195,8 +209,17 @@ while running:
             
     # Testar se o tempo de invencibilidade acabou
     carro.checagem_invencibilidade()
+    carro.checagem_slow()
     for vida in vidas:
         vida.checagem_blink()
+
+    if carro.slow and not slow_iniciado:
+        slow_iniciado = True
+        velocidade_anterior = velocidade_bg
+        velocidade_bg = 5
+    elif not carro.slow and slow_iniciado:
+        slow_iniciado = False
+        velocidade_bg = velocidade_anterior
 
     if carro.vidas <= 0:  # Jogador morreu, para o jogo
         print('Morte')
@@ -262,7 +285,12 @@ while running:
         tela.blit(slow._surf, slow._rect)
         pg.draw.rect(tela, (255, 0, 0), slow.hitbox, 2)
     
+    for coracao in coracao_coletavel_lista:
+        tela.blit(coracao._surf, coracao._rect)
+        pg.draw.rect(tela, (0, 255, 0), coracao.hitbox, 2)
+
     pg.display.update()
+
 
 # Encerra o programa
 pg.quit()

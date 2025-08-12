@@ -1,19 +1,27 @@
-def colisao_coletavel(carro, lista_coletavel, lista_espinhos, hud_trofeus, velocidade_bg):
+import pygame as pg
 
-    for coletavel in lista_coletavel:
-     
+def colisao_coletavel(carro, lista_coletavel, velocidade_bg, vidas):
+    for coletavel in lista_coletavel[:]: 
         if coletavel.__class__.__name__ == 'Slow':
-
-            #Colisão do slow com o carro
             if carro.hitbox.colliderect(coletavel.hitbox):
                 carro.ganhar_slow()
+                lista_coletavel.remove(coletavel)
 
-                if velocidade_bg <= 2:
-                    incremento = 0
-                else:    
-                    incremento = -1
+                carro.slow = True
+                carro.inicio_slow = pg.time.get_ticks()
 
-                return velocidade_bg + incremento
-            else:
+        elif coletavel.__class__.__name__ == 'Coracao':
+            if carro.hitbox.colliderect(coletavel.hitbox):
+                carro.ganhar_vida()
+                lista_coletavel.remove(coletavel)
 
-                return velocidade_bg
+                if carro.vidas == 3:
+                    vidas[2].viveu()
+                    vidas[2].viva = True
+                    vidas[2].blink = True
+                    vidas[2].tempo_blink = pg.time.get_ticks()
+                elif carro.vidas == 2:
+                    vidas[1].viveu()
+                    vidas[1].viva = True
+                    vidas[1].blink = True
+                    vidas[1].tempo_blink = pg.time.get_ticks()

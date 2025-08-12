@@ -9,6 +9,7 @@ class Carro:
 
         self.vidas = 3
         self.trofeus = 0
+        self.coracao_coletavel = 0
         self.slow = 0
         self.venceu = False
         self.invencivel = False
@@ -16,6 +17,9 @@ class Carro:
         self.duracao_invencibilidade = 1500
         self.estado_queda = 'nenhum'
         self.velocidade_queda = 0
+        self.duracao_slow = 5000
+        self.slow = False
+        self.inicio_slow = pg.time.get_ticks()
 
         self.angulo_rotação = 0
         self.escala = 1.0
@@ -34,6 +38,10 @@ class Carro:
             self.invencivel = True
             self.tempo_invencivel = pg.time.get_ticks()
             print(f'Colisão. Vidas restantes {self.vidas}') #mensagem para teste de debug depois caso algum problema com colisão
+
+    def ganhar_vida(self):
+        self.vidas += 1
+        print(f'coracao ganhos: {self.coracao_coletavel}') 
     
     def morrer(self):
         self.vidas = 0
@@ -55,3 +63,9 @@ class Carro:
     
     def ganhar_slow(self):
         self.slow += 1
+
+    def checagem_slow(self):
+        if self.slow == True:
+            tempo_atual = pg.time.get_ticks()
+            if tempo_atual - self.inicio_slow > self.duracao_slow:
+                self.slow = False
