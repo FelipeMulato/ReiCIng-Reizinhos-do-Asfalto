@@ -49,9 +49,9 @@ Esse projeto consiste em um jogo de carro em 2D, na qual o objetivo é desviar d
 
 | Coletável        | Função                                                        |
 | ---------------- | ------------------------------------------------------------- |
-|<img src="images/coração_cheio.png" alt="Descrição da imagem" width="100"/> | Regenerar uma vida |
-|<img src="images/slow.png" alt="Descrição da imagem" width="100"/> | Desacelerar o carro    |
-|<img src="images/trofeu.png" alt="Descrição da imagem" width="100"/>| Pontuação do jogo |
+|<img src="Images/coração_cheio.png" alt="Descrição da imagem" width="100"/> | Regenerar uma vida |
+|<img src="Images/slow.png" alt="Descrição da imagem" width="100"/> | Desacelerar o carro    |
+|<img src="Images/trofeu.png" alt="Descrição da imagem" width="100"/>| Pontuação do jogo |
 
 
 ## Bibliotecas e ferramentas
