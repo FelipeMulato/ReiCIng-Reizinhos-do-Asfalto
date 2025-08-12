@@ -1,7 +1,6 @@
 import pygame as pg
 import random
 
-
 class Coracao:
     def __init__(self, arquivo):
         self._surf = pg.image.load(f"Imagens/{arquivo}.png")

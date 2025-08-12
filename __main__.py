@@ -1,5 +1,8 @@
+#BIBLIOTECAS
 import pygame as pg
 import sys
+
+#CLASSES
 from Classes.carro import Carro
 from Classes.pista import Pista
 from Classes.fundo import Fundo
@@ -12,6 +15,7 @@ from Classes.slow import Slow
 from Classes.coracao_coletavel import Coracao
 from Classes.explosao import Explosao
 
+#FUNÇÕES
 from Funções.gerar_obstaculo import gerar_obstaculos
 from Funções.mover_remover import mover_remover
 from Funções.colisao_obstaculo import colisao_obstaculo
@@ -52,7 +56,7 @@ timer_trofeus = pg.USEREVENT + 1
 pg.time.set_timer(timer_trofeus, 20000)
 # Inicialização do Slow
 slows = []
-tempo_spawn_slow = 10000
+tempo_spawn_slow = 18000
 prox_slow = pg.time.get_ticks() + tempo_spawn_slow
 slow_iniciado = False
 # Inicialização coração coletavel
@@ -110,11 +114,11 @@ while running:
         mover_remover(trofeus, velocidade_bg, largura)
         mover_remover(coracao_coletavel_lista, velocidade_bg, largura)
         # Colisão com os obstáculos
-        colisao_obstaculo(carro, espinhos, vidas, velocidade_bg)
-        colisao_obstaculo(carro, paredes, vidas, velocidade_bg)
+        colisao_obstaculo(carro, espinhos, vidas)
+        colisao_obstaculo(carro, paredes, vidas)
         # Colisão com os coletáveis
-        colisao_coletavel(carro, coracao_coletavel_lista, velocidade_bg, vidas)
-        colisao_coletavel(carro, slows, velocidade_bg, vidas)
+        colisao_coletavel(carro, coracao_coletavel_lista, vidas)
+        colisao_coletavel(carro, slows, vidas)
 
         # Evita o spawn de um troféu em cima de uma parede
         if len(paredes) > 0 and len(trofeus) > 0:
@@ -205,8 +209,7 @@ while running:
     elif carro.estado_queda == 'explodindo':
         if pg.time.get_ticks() - carro_tempo_colisao > 300:
            carro.morrer()
-
-            
+  
     # Testar se o tempo de invencibilidade acabou
     carro.checagem_invencibilidade()
     carro.checagem_slow()
@@ -290,7 +293,6 @@ while running:
         pg.draw.rect(tela, (0, 255, 0), coracao.hitbox, 2)
 
     pg.display.update()
-
 
 # Encerra o programa
 pg.quit()
