@@ -1,4 +1,5 @@
 def sobreposicao_obstaculo(obstaculos1, obstaculos2):
+    
     for obstaculo1 in obstaculos1:
         for obstaculo2 in obstaculos2:
             if obstaculo1.hitbox.colliderect(obstaculo2.hitbox):
