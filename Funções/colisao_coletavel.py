@@ -1,6 +1,6 @@
 import pygame as pg
 
-def colisao_coletavel(carro, lista_coletavel, velocidade_bg, vidas):
+def colisao_coletavel(carro, lista_coletavel, vidas):
     for coletavel in lista_coletavel[:]: 
         if coletavel.__class__.__name__ == 'Slow':
             if carro.hitbox.colliderect(coletavel.hitbox):

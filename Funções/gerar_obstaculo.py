@@ -1,4 +1,5 @@
 def gerar_obstaculos(tempo_atual, proximo, lista, classe, tempo_spawn, tempo_minimo):
+    
     if tempo_atual >= proximo:
         lista.append(classe(f'{classe.__name__}'))
         tempo_spawn *= 0.96
