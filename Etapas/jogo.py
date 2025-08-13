@@ -1,5 +1,6 @@
 #BIBLIOTECAS
 import pygame as pg
+import random
 
 #CLASSES
 from Classes.carro import Carro
@@ -14,6 +15,8 @@ from Classes.slow import Slow
 from Classes.coracao_coletavel import Coracao
 from Classes.explosao import Explosao
 from Classes.som import Sons
+from Classes.coracao_coletavel import hud_coracao_coletavel
+from Classes.slow import hud_slow
 
 #FUNÇÕES
 from Funções.gerar_obstaculo import gerar_obstaculos
@@ -23,7 +26,7 @@ from Funções.sobreposicao_objetos import sobreposicao_objeto
 from Funções.colisao_coletavel import colisao_coletavel
 
 
-def game(tela, altura, largura, arquivo_carro):
+def game(tela, altura, largura, arquivo_carro, hud_coracao, hud_slow_obj):
     
     jogo = True
     final = ''
@@ -37,7 +40,7 @@ def game(tela, altura, largura, arquivo_carro):
     carro = Carro(arquivo_carro)
     vidas = [Vidas(1050), Vidas(1100), Vidas(1150)]
     hud_trofeus = HUD_Trofeus()
-
+    
     # Inicialização dos espinhos
     espinhos = []
     tempo_spawn_espinho = 1800
@@ -76,14 +79,14 @@ def game(tela, altura, largura, arquivo_carro):
         # Eventos do jogo
         for event in pg.event.get():
             if event.type == pg.QUIT:
-                return False, final
+                return False, final, carro.coracao_coletavel
             if event.type == timer_trofeus:
                 trofeus.append(Trofeu('trofeu'))
             if carro.vidas <3:
                 if event.type == timer_coracao_coletavel:
                     coracao_coletavel_lista.append(Coracao())
 
-        velocidade_bg += 0.0005  # Incrementa a velocidade do fundo
+        velocidade_bg += 0.0005
 
         # Geração dos obstáculos
         tempo_atual = pg.time.get_ticks()
@@ -91,7 +94,6 @@ def game(tela, altura, largura, arquivo_carro):
         prox_parede, tempo_spawn_parede = gerar_obstaculos(tempo_atual, prox_parede, paredes, Parede, tempo_spawn_parede, 2000)
         prox_slow, tempo_spawn_slow = gerar_obstaculos(tempo_atual, prox_slow, slows, Slow, tempo_spawn_slow, 6000)
         
-        # Verificar se algum objeto está sobreposto a uma parede
         sobreposicao_objeto(espinhos, paredes) if espinhos and paredes else None
         sobreposicao_objeto(trofeus, paredes) if trofeus and paredes else None
         sobreposicao_objeto(slows, paredes) if slows and paredes else None
@@ -136,7 +138,6 @@ def game(tela, altura, largura, arquivo_carro):
                         for i in range(len(espinhos) - 1, -1, -1):
                             espinhos.pop(i)
 
-                    # Calcula a equação do segundo grau para realizar a movimentação do troféu em forma de parábola
                     xv = trofeu._rect.x
                     yv = trofeu._rect.y
                     a = (109 - yv) / (102 - xv)**2
@@ -144,14 +145,13 @@ def game(tela, altura, largura, arquivo_carro):
                     c = ((yv * 4 * a) + b**2) / 4 * a
                     x = trofeu.voar(xv, a, b, c)
 
-                if trofeu.pego:  # Leva o troféu até o contador
-                    som.trofeu()  # Toca o som de coleta do troféu
-                    if trofeu._rect.colliderect((30, 30, 160, 75)):  # Coleta o troféu
+                if trofeu.pego:
+                    som.trofeu()
+                    if trofeu._rect.colliderect((30, 30, 160, 75)):
                         carro.ganhar_trofeu()
                         hud_trofeus.pegou_trofeu(carro.trofeus)
-                        # Remove o troféu da tela após coleta
                         trofeus.remove(trofeu)
-                    else:  # Move o troféu novamente
+                    else:
                         x = trofeu.voar(x, a, b, c)
 
             # Checar se o carro caiu da pista
@@ -172,7 +172,6 @@ def game(tela, altura, largura, arquivo_carro):
                 direcao_rotacao = 8
                 direcao_movimento = -1
         
-            # Remove todas as vidas do HUD
             for vida in vidas:
                 if vida.viva:
                     vida.morreu()
@@ -194,7 +193,7 @@ def game(tela, altura, largura, arquivo_carro):
         
         # Carro colidiu com a parede
         elif carro.estado_queda == 'colidiu':
-            som.explosao()  # Toca o som de explosão
+            som.explosao()
             carro_tempo_colisao = pg.time.get_ticks()
 
             velocidade_bg = 0
@@ -202,7 +201,6 @@ def game(tela, altura, largura, arquivo_carro):
             explosao.add(Explosao(carro._rect.centerx, carro._rect.centery))
             carro.estado_queda = 'explodindo'
 
-            # Remove vidas do HUD
             for vida in vidas:
                 if vida.viva:
                     vida.morreu()
@@ -215,9 +213,9 @@ def game(tela, altura, largura, arquivo_carro):
             if pg.time.get_ticks() - carro_tempo_colisao > 300:
                 carro.morrer()
                 
-        # Checar se o tempos das respostas visuais já acabou 
         carro.checagem_invencibilidade()
         carro.checagem_slow()
+        
         for vida in vidas:
             vida.checagem_blink()
 
@@ -244,16 +242,16 @@ def game(tela, altura, largura, arquivo_carro):
             tempo_spawn_slow = slow_anterior
 
 
-        if carro.vidas <= 0:  # Jogador morreu, para o jogo
+        if carro.vidas <= 0:
             print('Morte')
             jogo = False
             final = 'morreu'
-        if carro.venceu:  # Jogador venceu, para o jogo
+        if carro.venceu:
             print('Venceu')
             jogo = False
             final = 'ganhou'
 
-        # Desenha todos os elementos visuais na tela e atualiza o display
+        # Desenha todos os elementos visuais na tela
         for i in range(2):
             tela.blit(fundos[i]._surf, fundos[i]._rect)
             tela.blit(pistas[i]._surf, pistas[i]._rect)
@@ -269,19 +267,22 @@ def game(tela, altura, largura, arquivo_carro):
             tela.blit(coracao._surf, coracao._rect)
 
         tela.blit(hud_trofeus._surf, hud_trofeus._rect)
+        
+        hud_coracao.desenhar(tela, carro.coracao_coletavel)
+        hud_slow_obj.desenhar(tela, carro.slows_coletados)
 
         desenhar_carro = True
         desenhar_vida = True
         trigger = (pg.time.get_ticks() // 100) % 2
 
-        if carro.invencivel == True: # Resposta visual para quando o carro sofre dano
+        if carro.invencivel == True:
             if trigger == 0:
                 desenhar_carro = False
 
         if desenhar_carro == True and carro.estado_queda not in ['colidiu', 'explodindo']:
             tela.blit(carro._surf, carro._rect)
 
-        for vida in vidas: # Resposta visual no HUD para quando perde uma vida
+        for vida in vidas:
             if vida.blink:
                 if trigger == 0:
                     desenhar_vida = False
@@ -300,9 +301,9 @@ def game(tela, altura, largura, arquivo_carro):
 
             tela.blit(vida._surf, vida._rect)
 
-        explosao.draw(tela) # Sprite da explosão
+        explosao.draw(tela)
         explosao.update()
             
         pg.display.update()
 
-    return True, final
+    return True, final, carro.coracao_coletavel

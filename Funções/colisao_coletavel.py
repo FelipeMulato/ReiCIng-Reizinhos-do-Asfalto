@@ -4,16 +4,12 @@ def colisao_coletavel(carro, lista_coletavel, vidas):
     for coletavel in lista_coletavel[:]: 
         if coletavel.__class__.__name__ == 'Slow':
             if carro.hitbox.colliderect(coletavel.hitbox):
-                
                 som_slow = pg.mixer.Sound("Áudios/time.mp3")
                 som_slow.set_volume(0.5)
                 som_slow.play()
                 carro.ganhar_slow()
                 lista_coletavel.remove(coletavel)
-
-                carro.slow = True
-                carro.inicio_slow = pg.time.get_ticks()
-
+        
         elif coletavel.__class__.__name__ == 'Coracao':
             if carro.hitbox.colliderect(coletavel.hitbox):
                 carro.ganhar_vida()
