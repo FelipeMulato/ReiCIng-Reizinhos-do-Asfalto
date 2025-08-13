@@ -15,8 +15,8 @@ from Classes.slow import Slow
 from Classes.coracao_coletavel import Coracao
 from Classes.explosao import Explosao
 from Classes.som import Sons
-from Classes.coracao_coletavel import hud_coracao_coletavel
-from Classes.slow import hud_slow
+from Classes.hud_coracao_coletavel import HUD_Coracao_Coletavel
+from Classes.hud_slow import HUD_Slow
 
 #FUNÇÕES
 from Funções.gerar_obstaculo import gerar_obstaculos
@@ -26,7 +26,7 @@ from Funções.sobreposicao_objetos import sobreposicao_objeto
 from Funções.colisao_coletavel import colisao_coletavel
 
 
-def game(tela, altura, largura, arquivo_carro, hud_coracao, hud_slow_obj):
+def game(tela, altura, largura, arquivo_carro):
     
     jogo = True
     final = ''
@@ -40,6 +40,8 @@ def game(tela, altura, largura, arquivo_carro, hud_coracao, hud_slow_obj):
     carro = Carro(arquivo_carro)
     vidas = [Vidas(1050), Vidas(1100), Vidas(1150)]
     hud_trofeus = HUD_Trofeus()
+    hud_coracao = HUD_Coracao_Coletavel()
+    hud_slow_obj = HUD_Slow()
     
     # Inicialização dos espinhos
     espinhos = []
@@ -65,7 +67,7 @@ def game(tela, altura, largura, arquivo_carro, hud_coracao, hud_slow_obj):
     # Inicialização dos corações coletaveis
     coracao_coletavel_lista = []
     timer_coracao_coletavel = pg.USEREVENT + 2
-    pg.time.set_timer(timer_coracao_coletavel, 25000)
+    pg.time.set_timer(timer_coracao_coletavel, 2000)
 
     # Inicialização da explosão
     explosao = pg.sprite.Group()
@@ -79,7 +81,7 @@ def game(tela, altura, largura, arquivo_carro, hud_coracao, hud_slow_obj):
         # Eventos do jogo
         for event in pg.event.get():
             if event.type == pg.QUIT:
-                return False, final, carro.coracao_coletavel
+                return False, final
             if event.type == timer_trofeus:
                 trofeus.append(Trofeu('trofeu'))
             if carro.vidas <3:
@@ -267,7 +269,6 @@ def game(tela, altura, largura, arquivo_carro, hud_coracao, hud_slow_obj):
             tela.blit(coracao._surf, coracao._rect)
 
         tela.blit(hud_trofeus._surf, hud_trofeus._rect)
-        
         hud_coracao.desenhar(tela, carro.coracao_coletavel)
         hud_slow_obj.desenhar(tela, carro.slows_coletados)
 
@@ -306,4 +307,4 @@ def game(tela, altura, largura, arquivo_carro, hud_coracao, hud_slow_obj):
             
         pg.display.update()
 
-    return True, final, carro.coracao_coletavel
+    return True, final
