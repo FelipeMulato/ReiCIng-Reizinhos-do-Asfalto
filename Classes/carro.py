@@ -2,7 +2,7 @@ import pygame as pg
 
 class Carro:
     def __init__(self, arquivo):
-        self._surf = pg.image.load(f'Imagens/{arquivo}.png').convert_alpha()
+        self._surf = pg.image.load(f'Imagens/Carros/{arquivo}.png').convert_alpha()
         self._original_surf = self._surf
 
         if arquivo=="mezzacar":
@@ -47,7 +47,8 @@ class Carro:
 
     def ganhar_vida(self):
         self.vidas += 1
-        print(f'coracao ganhos: {self.coracao_coletavel}') 
+        self.coracao_coletavel += 1
+        print(f'Coração ganhos: {self.coracao_coletavel}') 
     
     def morrer(self):
         self.vidas = 0

@@ -1,12 +1,18 @@
 import pygame as pg
 
+from Classes import carro
+
 def colisao_obstaculo(carro, lista_obstaculos, vidas):
 
     for obstaculo in lista_obstaculos[:]:
         if carro.hitbox.colliderect(obstaculo.hitbox):
-            carro.perder_vida()
-
+            
             if obstaculo.__class__.__name__ == 'Espinho':
+                som_dano = pg.mixer.Sound("Áudios/playerhit.mp3")
+                som_dano.set_volume(0.6)
+                som_dano.play()
+                carro.perder_vida()
+                
                 if carro.vidas == 2:
                     vidas[2].morreu()
                     vidas[2].viva = False
