@@ -10,7 +10,7 @@ from Classes.hud_trofeu import HUD_Trofeus
 from Classes.trofeu import Trofeu
 from Classes.slow import SLow
 from Classes.explosao import Explosao
-
+from Classes.som import Sons
 import time
 from Funções.gerar_obstaculo import gerar_obstaculos
 from Funções.mover_remover_obstaculo import mover_remover_obstaculos
@@ -52,9 +52,13 @@ slows = []
 tempo_spawn_slow = 15000
 prox_slow = pg.time.get_ticks() + tempo_spawn_slow
 
+# Inicialização do som
+sons = Sons()
+
 explosao = pg.sprite.Group()
 # Loop principal do jogo
 while running:
+    #sons.fundo()  # Toca a música de fundo
     # Eventos do jogo
     for event in pg.event.get():
         if event.type == pg.QUIT:
@@ -118,6 +122,7 @@ while running:
                 x, y = trofeu.voar(xv, yv, a, b, c)
 
             if trofeu.pego:  # Leva o troféu até o contador
+                sons.trofeu()  # Toca o som do troféu
                 if trofeu._rect.colliderect((30, 30, 160, 75)):  # Coleta o troféu
                     carro.ganhar_trofeu()
                     hud_trofeus.pegou_trofeu(carro.trofeus)
@@ -135,7 +140,7 @@ while running:
     # Carro caiu da pista
     if carro.estado_queda == 'cima' or carro.estado_queda == 'baixo':
         centro_antigo = carro._rect.center
-
+        sons.cair()  # Toca o som de queda
         if carro.estado_queda == 'baixo':
             direcao_rotacao = -8
             direcao_movimento = 1
@@ -166,7 +171,7 @@ while running:
         carro_tempo_colisao = pg.time.get_ticks()
 
         velocidade_bg = 0
-
+        sons.explosao()  # Toca o som de explosão
         explosao.add(Explosao(carro._rect.centerx, carro._rect.centery))
         carro.estado_queda = 'explodindo'
         # Remove vidas do HUD
