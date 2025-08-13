@@ -2,19 +2,24 @@ import pygame as pg
 
 class Carro:
     def __init__(self, arquivo):
-        self._surf = pg.image.load(f'Imagens/{arquivo}.png').convert_alpha()
+        self._surf = pg.image.load(f'Imagens/Carros/{arquivo}.png').convert_alpha()
         self._original_surf = self._surf
         self._rect = self._surf.get_rect(midbottom = (1000, 330))
         self.hitbox = self._rect.inflate(-18, -12)
 
         self.vidas = 3
         self.trofeus = 0
+        self.coracao_coletavel = 0
+        self.slow = 0
         self.venceu = False
         self.invencivel = False
         self.tempo_invencivel = 0
         self.duracao_invencibilidade = 1500
         self.estado_queda = 'nenhum'
         self.velocidade_queda = 0
+        self.duracao_slow = 5000
+        self.slow = False
+        self.inicio_slow = pg.time.get_ticks()
 
         self.angulo_rotação = 0
         self.escala = 1.0
@@ -33,6 +38,11 @@ class Carro:
             self.invencivel = True
             self.tempo_invencivel = pg.time.get_ticks()
             print(f'Colisão. Vidas restantes {self.vidas}') #mensagem para teste de debug depois caso algum problema com colisão
+
+    def ganhar_vida(self):
+        self.vidas += 1
+        self.coracao_coletavel += 1
+        print(f'Coração ganhos: {self.coracao_coletavel}') 
     
     def morrer(self):
         self.vidas = 0
@@ -49,4 +59,14 @@ class Carro:
             print(f'Troféus ganhos: {self.trofeus}') 
         if self.trofeus >= 3:
             self.venceu = True
+        
         return self.venceu
+    
+    def ganhar_slow(self):
+        self.slow += 1
+
+    def checagem_slow(self):
+        if self.slow == True:
+            tempo_atual = pg.time.get_ticks()
+            if tempo_atual - self.inicio_slow > self.duracao_slow:
+                self.slow = False
