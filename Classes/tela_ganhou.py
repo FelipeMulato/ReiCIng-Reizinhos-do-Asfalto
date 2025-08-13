@@ -13,22 +13,20 @@ class Tela_Ganhou:
         self.screen.blit(self.bg, (0, 0))
 
     def run(self):
+
         while self.rodando:
             for event in pg.event.get():
                 if event.type == pg.QUIT:
-                    return False
 
+                    return False
+                
                 if event.type == pg.KEYDOWN:
                     if event.key == pg.K_ESCAPE:
+
                         return False
                     if event.key == pg.K_RETURN or event.key == pg.K_SPACE:
+
                         return True
             
             self.draw()
             pg.display.flip()
-
-if __name__ == "__main__":
-    pg.init()
-    screen = pg.display.set_mode((1240, 720))
-    tela = Tela_Ganhou(screen)
-    tela.run()

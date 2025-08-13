@@ -2,6 +2,9 @@
 import pygame as pg
 import sys
 
+#SOM
+from Classes.som import Sons
+
 #ETAPAS
 from Etapas.tela_inicio import inicio
 from Etapas.selecao import selecao
@@ -17,11 +20,13 @@ tela = pg.display.set_mode((largura, altura))
 pg.display.set_caption('ReiCIng')
 relogio = pg.time.Clock()
 relogio.tick(60)
+musica = Sons()
 
 running = True
 
 # Loop principal
 while running:
+   musica.fundo()
    running = inicio(tela)
 
    if running:
@@ -33,6 +38,7 @@ while running:
          if final == 'morreu':
             running = gameover(tela)
          elif final == 'ganhou':
+            musica.vitoria()
             running = vitoria(tela)
 
 

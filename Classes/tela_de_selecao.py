@@ -65,13 +65,17 @@ class Tela_Selecao:
             pg.draw.rect(screen, (0, 255, 0), (612, 300, 350, 270), 8)
         
     def run(self, screen):
+
         while self.rodando:
             for event in pg.event.get():
                 if event.type == pg.QUIT:
+
                     return False, ''
 
                 if event.type == pg.KEYDOWN:
-                    if event.key == pg.K_RETURN or event.key == pg.K_SPACE: return True, self.carros_de_corrida[self.indice_carro]
+                    if event.key == pg.K_RETURN or event.key == pg.K_SPACE: 
+
+                        return True, self.carros_de_corrida[self.indice_carro]
                     
                     elif event.key == pg.K_1 or event.key == pg.K_KP_1: self.indice_carro = 0
                     elif event.key == pg.K_2 or event.key == pg.K_KP_2: self.indice_carro = 1
@@ -83,7 +87,9 @@ class Tela_Selecao:
                     elif event.key == pg.K_RIGHT: self.indice_carro = 0 if self.indice_carro == 4 else self.indice_carro + 1
                 
                 if event.type == pg.MOUSEBUTTONDOWN:
-                    if self.press_start.collidepoint(event.pos): return True, self.carros_de_corrida[self.indice_carro]
+                    if self.press_start.collidepoint(event.pos): 
+
+                        return True, self.carros_de_corrida[self.indice_carro]
 
                     elif self.boxes[0].collidepoint(event.pos): self.indice_carro = 0
                     elif self.boxes[1].collidepoint(event.pos): self.indice_carro = 1
