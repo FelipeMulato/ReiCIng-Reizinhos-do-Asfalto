@@ -39,7 +39,7 @@ velocidade_bg = 10
 velocidade_anterior = 10
 pistas = [Pista(-1240, 'Pista1'), Pista(-3720, 'Pista1')]
 fundos = [Fundo(-1240, 'Fundo1'), Fundo(-3720, 'Fundo1')]
-carro = Carro('CarRed')
+carro = Carro('Uno_')
 vidas = [Vidas(1050), Vidas(1100), Vidas(1150)]
 hud_trofeus = HUD_Trofeus()
 # Inicialização do Espinho

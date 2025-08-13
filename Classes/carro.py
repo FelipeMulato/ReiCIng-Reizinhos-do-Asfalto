@@ -4,8 +4,14 @@ class Carro:
     def __init__(self, arquivo):
         self._surf = pg.image.load(f'Imagens/{arquivo}.png').convert_alpha()
         self._original_surf = self._surf
-        self._rect = self._surf.get_rect(midbottom = (1000, 330))
-        self.hitbox = self._rect.inflate(-18, -12)
+
+        if arquivo=="mezzacar":
+            self._rect = self._surf.get_rect(midbottom = (1000, 530))
+            self.hitbox = self._rect.inflate(-78, -112)
+
+        else:
+            self._rect = self._surf.get_rect(midbottom = (1000, 330))
+            self.hitbox = self._rect.inflate(-18, -12)
 
         self.vidas = 3
         self.trofeus = 0
