@@ -19,7 +19,7 @@ running = True
 
 # Loop principal
 while running:
-   running = game(tela, altura, largura, 'CarRed')
+   running, final = game(tela, altura, largura, 'CarRed')
 
 
 # Encerra o programa

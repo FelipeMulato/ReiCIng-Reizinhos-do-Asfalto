@@ -28,6 +28,7 @@ from Funções.colisao_coletavel import colisao_coletavel
 def game(tela, altura, largura, arquivo_carro):
     
     jogo = True
+    final = ''
     limite_superior_pista = 140
     limite_inferior_pista = 630
     velocidade_bg = 10
@@ -77,7 +78,7 @@ def game(tela, altura, largura, arquivo_carro):
         # Eventos do jogo
         for event in pg.event.get():
             if event.type == pg.QUIT:
-                return False
+                return False, final
             if event.type == timer_trofeus:
                 trofeus.append(Trofeu('trofeu'))
             if carro.vidas <3:
@@ -248,9 +249,11 @@ def game(tela, altura, largura, arquivo_carro):
         if carro.vidas <= 0:  # Jogador morreu, para o jogo
             print('Morte')
             jogo = False
+            final = 'morreu'
         if carro.venceu:  # Jogador venceu, para o jogo
             print('Venceu')
             jogo = False
+            final = 'ganhou'
 
         # Desenha todos os elementos visuais na tela e atualiza o display
         for i in range(2):
@@ -304,4 +307,4 @@ def game(tela, altura, largura, arquivo_carro):
             
         pg.display.update()
 
-    return True
+    return True, final

@@ -8,9 +8,11 @@ def colisao_obstaculo(carro, lista_obstaculos, vidas):
         if carro.hitbox.colliderect(obstaculo.hitbox):
             
             if obstaculo.__class__.__name__ == 'Espinho':
-                som_dano = pg.mixer.Sound("Áudios/playerhit.mp3")
-                som_dano.set_volume(0.6)
-                som_dano.play()
+                if not carro.invencivel:
+                    som_dano = pg.mixer.Sound("Áudios/playerhit.mp3")
+                    som_dano.set_volume(0.6)
+                    som_dano.play()
+                    
                 carro.perder_vida()
                 
                 if carro.vidas == 2:
