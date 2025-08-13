@@ -36,6 +36,7 @@ while running:
          running, final = game(tela, altura, largura, arquivo_carro)
 
          if final == 'morreu':
+            musica.derrota()
             running = gameover(tela)
          elif final == 'ganhou':
             musica.vitoria()

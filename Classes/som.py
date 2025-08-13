@@ -15,7 +15,7 @@ class Sons:
         self.som_explosao.play()
     def cair(self):
         self.som_cair.play()
-        
+
     def fundo(self):
         pygame.mixer.music.load("Áudios/car_chase.mp3")
         pygame.mixer.music.set_volume(0.1)
@@ -23,5 +23,9 @@ class Sons:
     def vitoria(self):
         pygame.mixer.music.load("Áudios/tema_vitoria.mp3")
         pygame.mixer.music.set_volume(0.3)
+        pygame.mixer.music.play()
+    def derrota(self):
+        pygame.mixer.music.load("Áudios/som_derrota.mp3")
+        pygame.mixer.music.set_volume(0.5)
         pygame.mixer.music.play()
   
