@@ -67,7 +67,7 @@ def game(tela, altura, largura, arquivo_carro):
     # Inicialização dos corações coletaveis
     coracao_coletavel_lista = []
     timer_coracao_coletavel = pg.USEREVENT + 2
-    pg.time.set_timer(timer_coracao_coletavel, 2000)
+    pg.time.set_timer(timer_coracao_coletavel, 25000)
 
     # Inicialização da explosão
     explosao = pg.sprite.Group()
