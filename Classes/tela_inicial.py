@@ -11,10 +11,11 @@ class Tela_Inicial:
 
         self.press_start = pg.Rect(380, 550, 480, 90)
 
-    def draw(self, screen):
+    def draw(self):
         self.screen.blit(self.bg, (0, 0))
 
-    def run(self, screen):
+    def run(self):
+        
         while self.rodando:
             for event in pg.event.get():
                 if event.type == pg.QUIT:
@@ -31,7 +32,7 @@ class Tela_Inicial:
                     if self.press_start.collidepoint(event.pos): 
                         self.rodando = False
 
-            self.draw(screen)
+            self.draw()
             pg.display.flip()
 
         return True
