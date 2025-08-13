@@ -1,15 +1,12 @@
 import pygame as pg
-import sys
-import os
 
 class Tela_Ganhou:
-    def __init__(self, screen, imagens_dir="Imagens", inic="tela_vitoria.png"):
+    def __init__(self, screen):
         self.screen = screen
         self.clock = pg.time.Clock()
         self.rodando = True
 
-        bg_path = os.path.join(imagens_dir, inic)
-        self.bg = pg.image.load(bg_path).convert()
+        self.bg = pg.image.load('Imagens/Telas/tela_vitoria.png').convert()
         self.bg = pg.transform.smoothscale(self.bg, self.screen.get_size())
 
     def draw(self):
@@ -19,20 +16,19 @@ class Tela_Ganhou:
         while self.rodando:
             for event in pg.event.get():
                 if event.type == pg.QUIT:
-                    pg.quit(); sys.exit()
+                    return False
 
                 if event.type == pg.KEYDOWN:
                     if event.key == pg.K_ESCAPE:
-                        pg.quit(); sys.exit()
+                        return False
                     if event.key == pg.K_RETURN or event.key == pg.K_SPACE:
-                        return "tela de início"
+                        return True
             
             self.draw()
             pg.display.flip()
-            self.clock.tick(60)
 
 if __name__ == "__main__":
     pg.init()
-    screen = pg.display.set_mode((1024, 768))
-    tela = Tela_Ganhou(screen, imagens_dir="Imagens", inic="tela_vitoria.png")
+    screen = pg.display.set_mode((1240, 720))
+    tela = Tela_Ganhou(screen)
     tela.run()

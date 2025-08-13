@@ -23,8 +23,6 @@ from Funções.sobreposicao_objetos import sobreposicao_objeto
 from Funções.colisao_coletavel import colisao_coletavel
 
 
-
-
 def game(tela, altura, largura, arquivo_carro):
     
     jogo = True
@@ -53,7 +51,7 @@ def game(tela, altura, largura, arquivo_carro):
     # Inicialização dos troféus
     trofeus = []
     timer_trofeus = pg.USEREVENT + 1
-    pg.time.set_timer(timer_trofeus, 20000)
+    pg.time.set_timer(timer_trofeus, 21000)
 
     # Inicialização dos slows
     slows = []
@@ -69,9 +67,9 @@ def game(tela, altura, largura, arquivo_carro):
     # Inicialização da explosão
     explosao = pg.sprite.Group()
 
-
     # Inicialização do som
     som = Sons()
+
     # Loop principal do jogo
     while jogo:
 

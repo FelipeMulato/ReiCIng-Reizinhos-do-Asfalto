@@ -9,7 +9,7 @@ class Sons:
         self.som_fundo = pygame.mixer.Sound("Áudios/car_chase.mp3")
         self.som_fundo.set_volume(0.1)
         self.som_cair = pygame.mixer.Sound("Áudios/Falling.mp3")
-        self.som_cair.set_volume(0.5)
+        self.som_cair.set_volume(0.1)
 
     def trofeu(self):
         self.som_trofeu.play()
