@@ -107,7 +107,7 @@ O game só dará start quando a tecla "enter" ou "space" forem acionadas, ou qua
 
 ------------------------------------------------------------------------------------------------------------------------------------------
 
-Fim da linha? Não, você pode clicar em "yes" para reiniciar o jogo, ou se estiver cansado, clique em "no" para dar uma pausa
+Fim da linha? Não, você pode clicar em "yes" para reiniciar o jogo, ou se estiver cansado, clique em "no" para dar uma pausa.
 
 <img width="1238" height="673" alt="Captura de tela 2025-08-13 180231" src="https://github.com/user-attachments/assets/5add8aa0-3212-4b8c-96c7-b43a1f6d860f" />
 
