@@ -29,7 +29,7 @@ pg.display.set_caption('ReiCIng')
 limite_superior_pista = 140
 limite_inferior_pista = 630
 running = True
-velocidade_bg = 3
+velocidade_bg = 7
 pistas = [Pista(-1240, 'Pista1'), Pista(-3720, 'Pista1')]
 fundos = [Fundo(-1240, 'Fundo1'), Fundo(-3720, 'Fundo1')]
 carro = Carro('CarRed')
@@ -73,8 +73,10 @@ while running:
     prox_espinho = gerar_obstaculos(tempo_atual, prox_espinho, espinhos, Espinho, tempo_spawn_espinho, 800)
     prox_parede = gerar_obstaculos(tempo_atual, prox_parede, paredes, Parede, tempo_spawn_parede, 2000)
     prox_slow = gerar_obstaculos(tempo_atual, prox_slow, slows, SLow, tempo_spawn_slow, 3000)
+    
     # Verificar se os obstáculos estão sobrepostos
     sobreposicao_obstaculo(espinhos, paredes) if espinhos and paredes else None
+    
     # Carro está na pista
     if carro.estado_queda == 'nenhum':
         # Movimentação do carro
@@ -101,6 +103,12 @@ while running:
         colisao_obstaculo(carro, espinhos, vidas,velocidade_bg)
         colisao_obstaculo(carro, paredes, vidas,velocidade_bg)
         colisao_obstaculo(carro, slows, vidas,velocidade_bg)
+        # Evita o spawn de um troféu em cima de uma parede
+        if len(paredes) > 0 and len(trofeus) > 0:
+            for parede in paredes:
+                if trofeus[-1].hitbox.colliderect(parede.hitbox):
+                    trofeus[-1].mudar_pos()
+
         # Move e remove os troféus
         for trofeu in trofeus[:]:
             trofeu.mover_trofeu(velocidade_bg)
@@ -119,7 +127,7 @@ while running:
                 a = (109 - yv) / (102 - xv)**2
                 b = (2 * (109 - yv) * xv) / (102 - xv)**2
                 c = ((yv * 4 * a) + b**2) / 4 * a
-                x, y = trofeu.voar(xv, yv, a, b, c)
+                x = trofeu.voar(xv, a, b, c)
 
             if trofeu.pego:  # Leva o troféu até o contador
                 sons.trofeu()  # Toca o som do troféu
@@ -129,7 +137,7 @@ while running:
                     # Remove o troféu da tela após coleta
                     trofeus.remove(trofeu)
                 else:  # Move o troféu novamente
-                    x, y = trofeu.voar(x, y, a, b, c)
+                    x = trofeu.voar(x, a, b, c)
 
         # Checar se o carro caiu da pista
         if carro.hitbox.centery > limite_inferior_pista:

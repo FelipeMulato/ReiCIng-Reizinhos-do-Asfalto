@@ -1,5 +1,4 @@
 import pygame as pg
-import time
 
 class Vidas:
     def __init__(self, x):

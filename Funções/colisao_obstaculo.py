@@ -3,6 +3,7 @@ def colisao_obstaculo(carro,lista_obstaculos,vidas,velocidade_bg):
     for obstaculo in lista_obstaculos[:]:
         if carro.hitbox.colliderect(obstaculo.hitbox):
             carro.perder_vida()
+
             if obstaculo.__class__.__name__ == 'Espinho':
                 if carro.vidas == 2:
                     vidas[2].morreu()
@@ -16,6 +17,7 @@ def colisao_obstaculo(carro,lista_obstaculos,vidas,velocidade_bg):
                     vidas[0].morreu()
                     vidas[0].blink = True
                     vidas[0].tempo_blink = pg.time.get_ticks()
+                    
             elif obstaculo.__class__.__name__ == 'Parede':
                 carro.estado_queda = 'colidiu'
                 carro.velocidade = 0
