@@ -3,8 +3,12 @@ def colisao_obstaculo(carro,lista_obstaculos,vidas,velocidade_bg):
     for obstaculo in lista_obstaculos[:]:
         if carro.hitbox.colliderect(obstaculo.hitbox):
             carro.perder_vida()
-
             if obstaculo.__class__.__name__ == 'Espinho':
+                
+                # Som de dano
+                som = pg.mixer.Sound("Áudios/playerhit.mp3")
+                som.set_volume(0.3)
+                som.play()
                 if carro.vidas == 2:
                     vidas[2].morreu()
                     vidas[2].blink = True
@@ -19,9 +23,14 @@ def colisao_obstaculo(carro,lista_obstaculos,vidas,velocidade_bg):
                     vidas[0].tempo_blink = pg.time.get_ticks()
                     
             elif obstaculo.__class__.__name__ == 'Parede':
+                
                 carro.estado_queda = 'colidiu'
                 carro.velocidade = 0
                 carro.tempo_queda = pg.time.get_ticks()
             elif obstaculo.__class__.__name__ == 'SLow':
+                # Som de heelth
+                som = pg.mixer.Sound("Áudios/time.mp3")
+                som.set_volume(0.3)
+                som.play()
                 carro.ganhar_slow(velocidade_bg)
                 lista_obstaculos.remove(obstaculo)
