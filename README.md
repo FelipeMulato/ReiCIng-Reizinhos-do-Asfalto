@@ -38,7 +38,7 @@ Esse projeto consiste em um jogo de carro em 2D, na qual o objetivo é desviar d
 
 | Atalhos          | Função                                                        |
 | ---------------- | ------------------------------------------------------------- |
-|  SETAUP/SETADOWN | Movimentação |
+| SETA_UP/SETA_DOWN| Movimentação |
 
 
 
@@ -49,9 +49,9 @@ Esse projeto consiste em um jogo de carro em 2D, na qual o objetivo é desviar d
 
 | Coletável        | Função                                                        |
 | ---------------- | ------------------------------------------------------------- |
-|<img src="Images/coração_cheio.png" alt="Descrição da imagem" width="100"/> | Regenerar uma vida |
-|<img src="Images/slow.png" alt="Descrição da imagem" width="100"/> | Desacelerar o carro    |
-|<img src="Images/trofeu.png" alt="Descrição da imagem" width="100"/>| Pontuação do jogo |
+|<img src="Imagens/coracao_cheio.png" alt="Descrição da imagem" width="100"/> | Regenerar uma vida |
+|<img src="Imagens/slow.png" alt="Descrição da imagem" width="100"/> | Desacelerar o carro    |
+|<img src="Imagens/trofeu.png" alt="Descrição da imagem" width="100"/>| Pontuação do jogo |
 
 
 ## Bibliotecas e ferramentas
@@ -59,7 +59,7 @@ Esse projeto consiste em um jogo de carro em 2D, na qual o objetivo é desviar d
 | Biblioteca          | Utilização                                                       |
 | ---------------- | ------------------------------------------------------------- |
 | PyGame |	A biblioteca pygame é a principal de nosso projeto, pois ela tem funções específicas que facilitam na criação do jogo, principalmente na questão da renderização de objetos e as interações entre eles.|
-| Random |A biblioteca "Random" foi utilizada em algumas partes do código, utilizando a função "Randint", que sorteia um número inteiro dentro de um intervalo definido, fizemos as mecânica para decidir qual coletável seria "dropado" apartir dela.|
+| Random |  A biblioteca "Random" foi utilizada em algumas partes do código, utilizando a função "Randint", que sorteia um número inteiro dentro de um intervalo definido, fizemos as mecânica para decidir qual coletável seria "dropado" apartir dela.|
 
 
 ## Conceitos 
