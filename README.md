@@ -1,12 +1,10 @@
 ## ReiCIng: Reizinhos do Asfalto🏎️
-Esse projeto consiste em um jogo de carro em 2D, na qual o objetivo é desviar de obstáculos a medida que a velocidade do automovél aumenta, enquanto isso o piloto deve pegar diversos coletáveis que vão ajuda-ló a se tornar o verdadeiro Reizinho do Asfalto, eai você tem o que é necessesário para vencer a ReiCIng?
-
-
+Esse projeto consiste em um jogo de carro em 2D. Seu objetivo é coletar os três troféus necessários para vencer o jogo enquanto desvia de obstáculos e evita cair da pista, à medida que sua velocidade cresce. Para te ajudar, você pode coletar vidas e slows, que vão ser bem úteis para que você não bata direto em uma parede. E aí? Será que você tem o que é necessário para vencer a ReiCIng e se tornar um Reizinho do Asfalto? 
 
 ## Autores📝
 
 - Antonio Neto (agan)
-- Caio Bagra (csb)
+- Caio Braga (csb)
 - Daniel Cavalcanti(dcms3)
 - Felipe Mulato (fam3)
 - Gabriel Mezzalira (gmtbn)
@@ -18,8 +16,8 @@ Esse projeto consiste em um jogo de carro em 2D, na qual o objetivo é desviar d
 
 | Membros           | Tarefas                                                         |
 | ----------------- | ----------------------------------------------------------------|
-| Antônio Neto      | Criação do coletável de diminuir velocidade                     |
-| Caio Braga        | Menu inicial do jogo, Tela de game over                         |
+| Antônio Neto      | Criação do coletável que reduz a velocidade                     |
+| Caio Braga        | Telas de Início, de Seleção do carro e de Finalização do jogo   |
 | Daniel Cavalcanti | Criação de movimento da tela e do carro                         |
 | Felipe Mulato     | Criação do obstáculo parede e funções internas do jogo          |
 | Gabriel Mezzalira | Criação do coletável de recuperação de vida e da pontuação      |
@@ -64,7 +62,7 @@ Esse projeto consiste em um jogo de carro em 2D, na qual o objetivo é desviar d
 
 ## Conceitos 👨🏾‍🏫
 
-É possível ver ao longo do código, aplicações de diversos conceitos ensinados durante o semestre. Nota-se com uma certa frequência o uso de Comandos condicionais, Laços de repetição, Listas, Tuplas, Funções e principalmente, programação orientada a objeto.
+É possível ver ao longo do código, aplicações de diversos conceitos ensinados durante o semestre. Nota-se, com uma certa frequência, o uso de Comandos condicionais, Laços de repetição, Listas, Tuplas, Funções e principalmente, programação orientada a objeto.
 
 ## Organização do Código🧑🏾‍💻
 
@@ -75,20 +73,18 @@ O código foi estruturando usando o conceito de programação orientada a objeto
 - Parede(): Classe responsável por armazenar os dados e as funções relacionadas as paredes.
 - Sons(): Classe responsável pelos efeitos sonoros do jogo.
 - Pista(): Classe responsável por armazernar as informaçãoes sobre a pista e movimentação da tela.
-- Trofeu(): Classe responsável para armazenar as informações sobre o coletável da pontuação.
+- Trofeu(): Classe responsável para armazenar as informações sobre o coletável de pontuação.
 - Slow(): Classe responsável para armazenar as informações sobre o coletável de redução da velocidade.
 - Vidas():Classe responsável para armazenar as informações sobre o coletável de recuperação da vida.
 - Explosão(): Classe reponsável pela animação da explosão.
 - HudTrofeu(): Classe reponsável pela animação do hud trofeu.
 
-## Arquitetura do código 📃
 
-O código foi dividido em 5 pastas principais, sendo elas: "__Imagens__" (com todas as imagens utilizadas no jogo), "__Áudios__" (com todos os áudios utilizados no jogo), "__Classes__" (onde foram desevolvidas todas as classes separadamente para maior organização), "__Funções__" (pasta que contém as funções que se repetiam para diversos objetos do programa, visando uma maior organização) e "__Etapas__" (pasta que se encontram as funções de maiores, que utilizam as demais classes e funções para desenvolver as telas principais do jogo). Por fim, temos o arquivo "__main__", onde foram unidas todas partes para o funcionamento do jogo.
 
 ## Desafios e Experiências🎓
 
 O principal desafio que enfrentamos durante a realização deste projeto foi aprender a utilizar ferramentas e conceitos que nunca havíamos visto antes, como a biblioteca Pygame e a programação orientada a objetos. No entanto, foi extremamente útil adquirir esses conhecimentos, pois eles nos permitiram realizar tarefas muito mais avançadas do que imaginávamos no início do curso.
-Outro aprendizado importante que tivemos com este projeto foi o uso de plataformas como o GitHub que nos ajudaram a organizar o desenvolvimento de forma mais eficiente e colaborativa.
+Outro aprendizado importante que tivemos com esse projeto foi o uso de plataformas como o GitHub que nos ajudaram a organizar o desenvolvimento de forma mais eficiente e colaborativa.
   
 ## Imagens📸
 
@@ -102,23 +98,19 @@ Está é a aba inicial. Nela pedemos utilizar o cursor ou o botão "enter" para 
 ------------------------------------------------------------------------------------------------------------------------------------------
 
 Abaixo está a tela de seleção dos carros. A escolha dos carros pode ser feita pelo cursor, pelos números (1, 2, 3, 4, 5), ou pelas setas. 
-O game só dará start quando a tecla "enter" ou "space" forem acionadas, ou quando o cursor clicar no "press start". 
+O game só dará start se as teclas "enter" ou "space" forem acionadas, ou se o cursor clicar no "press start". 
 
 <img width="800" height="1250" alt="Captura de tela 2025-08-13 180244" src="https://github.com/user-attachments/assets/67571178-e98a-4075-970e-da04b8c03f4f" />
 
 
 ------------------------------------------------------------------------------------------------------------------------------------------
 
-Fim da linha? Não, você pode clicar em "yes" para reiniciar o jogo, ou se estiver cansado, clique em "no" para dar uma pausa.
+Fim da linha? Não, você pode clicar em "yes" para reiniciar o jogo, ou se estiver cansado, clique em "no" para dar uma pausa. Acionar as teclas "enter" ou "space" também retomam a tela inicial. A tecla "esc" sai do jogo, assim como clicar no ícone de X da janela.
 
-<img width="800" height="1250" alt="Captura de tela 2025-08-13 180231" src="https://github.com/user-attachments/assets/5add8aa0-3212-4b8c-96c7-b43a1f6d860f" />
-
-------------------------------------------------------------------------------------------------------------------------------------------
-Parabéns, você é o novo reizinho do asfalto. Sua trajetória foi incrível, entre todos os corredores o mais rápido foi você!
-
-<img width="800" height="1250" alt="Captura de tela 2025-08-13 203739" src="https://github.com/user-attachments/assets/7c1c59a7-0f2d-49c0-a512-d4fa71134dc7" />
+<img width="1238" height="673" alt="Captura de tela 2025-08-13 180231" src="https://github.com/user-attachments/assets/5add8aa0-3212-4b8c-96c7-b43a1f6d860f" />
 
 ------------------------------------------------------------------------------------------------------------------------------------------
+
 _______________________________________
 |      Carros      |     Descrição    |
 |------------------|------------------|
@@ -130,13 +122,6 @@ _______________________________________
 
 ------------------------------------------------------------------------------------------------------------------------------------------
 
-HELP CORREDORES 🆘
 
-<img width="1233" height="689" alt="Captura de tela 2025-08-13 203242" src="https://github.com/user-attachments/assets/c86707a6-2f34-41f1-8e47-48e755d17235" />
-
-Para vocês corredores novatos que não sabem por onde começar, é fácil! Coloquem seus cintos e pisem fundo no acelerador. 
-Ao pegar na direção (seta superior e seta inferior) desvie dos obstáculos para conseguir sobreviver a essa corrida mortal. Precisa de ajuda? Pegue os coletáveis, como o slow (parceiro do freio, te ajuda a diminuir a velocidade por alguns segundos), coração (recupera sua vida, caso tenha perdido) e os troféus (jóia do game, com 3 troféus você vai conseguir se tornar um reizinho do asfalto).
-
-------------------------------------------------------------------------------------------------------------------------------------------
 
 
