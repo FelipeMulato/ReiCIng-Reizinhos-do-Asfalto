@@ -1,7 +1,7 @@
 ## ReiCIng: Reizinhos do Asfalto🏎️
 Esse projeto consiste em um jogo de carro em 2D. Seu objetivo é coletar os três troféus necessários para vencer o jogo enquanto desvia de obstáculos e evita cair da pista, à medida que sua velocidade cresce. Para te ajudar, você pode coletar vidas e slows, que vão ser bem úteis para que você não bata direto em uma parede. E aí? Será que você tem o que é necessário para vencer a ReiCIng e se tornar um Reizinho do Asfalto? 
 
-## Autores📝
+## Autores 📝
 
 - Antonio Neto (agan)
 - Caio Braga (csb)
@@ -32,7 +32,7 @@ Esse projeto consiste em um jogo de carro em 2D. Seu objetivo é coletar os trê
 
 4º - Rodar o arquivo __main__.py.
 
-## Controles🎮
+## Controles 🎮
 
 | Atalhos          | Função                                                        |
 | ---------------- | ------------------------------------------------------------- |
@@ -52,7 +52,7 @@ Esse projeto consiste em um jogo de carro em 2D. Seu objetivo é coletar os trê
 |<img src="Imagens/trofeu.png" alt="Descrição da imagem" width="100"/>| Pontuação do jogo |
 
 
-## Bibliotecas e ferramentas📚
+## Bibliotecas e ferramentas 📚
 
 | Biblioteca          | Utilização                                                       |
 | ---------------- | ------------------------------------------------------------- |
@@ -64,7 +64,7 @@ Esse projeto consiste em um jogo de carro em 2D. Seu objetivo é coletar os trê
 
 É possível ver ao longo do código, aplicações de diversos conceitos ensinados durante o semestre. Nota-se, com uma certa frequência, o uso de Comandos condicionais, Laços de repetição, Listas, Tuplas, Funções e principalmente, programação orientada a objeto.
 
-## Organização do Código🧑🏾‍💻
+## Organização do Código 🧑🏾‍💻
 
 O código foi estruturando usando o conceito de programação orientada a objetos. As classes importantes foram:
 
@@ -81,7 +81,7 @@ O código foi estruturando usando o conceito de programação orientada a objeto
 
 
 
-## Desafios e Experiências🎓
+## Desafios e Experiências 🎓
 
 O principal desafio que enfrentamos durante a realização deste projeto foi aprender a utilizar ferramentas e conceitos que nunca havíamos visto antes, como a biblioteca Pygame e a programação orientada a objetos. No entanto, foi extremamente útil adquirir esses conhecimentos, pois eles nos permitiram realizar tarefas muito mais avançadas do que imaginávamos no início do curso.
 Outro aprendizado importante que tivemos com esse projeto foi o uso de plataformas como o GitHub que nos ajudaram a organizar o desenvolvimento de forma mais eficiente e colaborativa.
