@@ -131,7 +131,8 @@ _______________________________________
 
 HELP CORREDORES 🆘
 
-<img width="1233" height="689" alt="Captura de tela 2025-08-13 203242" src="https://github.com/user-attachments/assets/c86707a6-2f34-41f1-8e47-48e755d17235" />
+<img width="1236" height="717" alt="image" src="https://github.com/user-attachments/assets/98a05a8a-bb55-43cd-852e-2db5037d794a" />
+
 
 Para vocês corredores novatos que não sabem por onde começar, é fácil! Coloquem seus cintos e pisem fundo no acelerador. 
 Ao pegar na direção (seta superior e seta inferior) desvie dos obstáculos para conseguir sobreviver a essa corrida mortal. Precisa de ajuda? Pegue os coletáveis, como o slow (parceiro do freio, te ajuda a diminuir a velocidade por alguns segundos), coração (recupera sua vida, caso tenha perdido) e os troféus (jóia do game, com 3 troféus você vai conseguir se tornar um reizinho do asfalto).
