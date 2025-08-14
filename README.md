@@ -79,7 +79,9 @@ O código foi estruturando usando o conceito de programação orientada a objeto
 - Explosão(): Classe reponsável pela animação da explosão.
 - HudTrofeu(): Classe reponsável pela animação do hud trofeu.
 
+## Arquitetura do código 📃
 
+O código foi dividido em 5 pastas principais, sendo elas: "__Imagens__" (com todas as imagens utilizadas no jogo), "__Áudios__" (com todos os áudios utilizados no jogo), "__Classes__" (onde foram desevolvidas todas as classes separadamente para maior organização), "__Funções__" (pasta que contém as funções que se repetiam para diversos objetos do programa, visando uma maior organização) e "__Etapas__" (pasta que se encontram as funções de maiores, que utilizam as demais classes e funções para desenvolver as telas principais do jogo). Por fim, temos o arquivo "__main__", onde foram unidas todas partes para o funcionamento do jogo.
 
 ## Desafios e Experiências 🎓
 
@@ -107,7 +109,12 @@ O game só dará start se as teclas "enter" ou "space" forem acionadas, ou se o 
 
 Fim da linha? Não, você pode clicar em "yes" para reiniciar o jogo, ou se estiver cansado, clique em "no" para dar uma pausa. Acionar as teclas "enter" ou "space" também retomam a tela inicial. A tecla "esc" sai do jogo, assim como clicar no ícone de X da janela.
 
-<img width="1238" height="673" alt="Captura de tela 2025-08-13 180231" src="https://github.com/user-attachments/assets/5add8aa0-3212-4b8c-96c7-b43a1f6d860f" />
+<img width="800" height="1250" alt="Captura de tela 2025-08-13 180231" src="https://github.com/user-attachments/assets/5add8aa0-3212-4b8c-96c7-b43a1f6d860f" />
+
+------------------------------------------------------------------------------------------------------------------------------------------
+Parabéns, você é o novo reizinho do asfalto. Sua trajetória foi incrível, entre todos os corredores o mais rápido foi você!
+
+<img width="800" height="1250" alt="Captura de tela 2025-08-13 203739" src="https://github.com/user-attachments/assets/7c1c59a7-0f2d-49c0-a512-d4fa71134dc7" />
 
 ------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -122,6 +129,11 @@ _______________________________________
 
 ------------------------------------------------------------------------------------------------------------------------------------------
 
+HELP CORREDORES 🆘
 
+<img width="1233" height="689" alt="Captura de tela 2025-08-13 203242" src="https://github.com/user-attachments/assets/c86707a6-2f34-41f1-8e47-48e755d17235" />
+
+Para vocês corredores novatos que não sabem por onde começar, é fácil! Coloquem seus cintos e pisem fundo no acelerador. 
+Ao pegar na direção (seta superior e seta inferior) desvie dos obstáculos para conseguir sobreviver a essa corrida mortal. Precisa de ajuda? Pegue os coletáveis, como o slow (parceiro do freio, te ajuda a diminuir a velocidade por alguns segundos), coração (recupera sua vida, caso tenha perdido) e os troféus (jóia do game, com 3 troféus você vai conseguir se tornar um reizinho do asfalto).
 
 
