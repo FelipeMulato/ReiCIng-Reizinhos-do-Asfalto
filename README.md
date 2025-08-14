@@ -1,4 +1,4 @@
-## ReiCIng: Reizinhos do Asfalto🏎️
+## ReiCIng: Reizinhos do Asfalto 🏎️
 Esse projeto consiste em um jogo de carro em 2D. Seu objetivo é coletar os três troféus necessários para vencer o jogo enquanto desvia de obstáculos e evita cair da pista, à medida que sua velocidade cresce. Para te ajudar, você pode coletar vidas e slows, que vão ser bem úteis para que você não bata direto em uma parede. E aí? Será que você tem o que é necessário para vencer a ReiCIng e se tornar um Reizinho do Asfalto? 
 
 ## Autores 📝
