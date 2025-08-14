@@ -81,7 +81,9 @@ O código foi estruturando usando o conceito de programação orientada a objeto
 - Explosão(): Classe reponsável pela animação da explosão.
 - HudTrofeu(): Classe reponsável pela animação do hud trofeu.
 
+## Arquitetura do código 📃
 
+O código foi dividido em 5 pastas principais, sendo elas: "__Imagens__" (com todas as imagens utilizadas no jogo), "__Áudios__" (com todos os áudios utilizados no jogo), "__Classes__" (onde foram desevolvidas todas as classes separadamente para maior organização), "__Funções__" (pasta que contém as funções que se repetiam para diversos objetos do programa, visando uma maior organização) e "__Etapas__" (pasta que se encontram as funções de maiores, que utilizam as demais classes e funções para desenvolver as telas principais do jogo). Por fim, temos o arquivo "__main__", onde foram unidas todas partes para o funcionamento do jogo.
 
 ## Desafios e Experiências🎓
 
